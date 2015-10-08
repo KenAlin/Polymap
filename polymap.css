@@ -1,0 +1,70 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+html, body, #mapP {
+  height: 100%;
+}
+
+a {
+  color: rgb(51, 51, 51);
+  text-decoration: none;
+}
+
+#mapP {
+  position: relative;
+}
+
+#filtres {
+  position: absolute;
+  bottom: 0px;
+  height: 150px;
+  width: 100%;
+  background-color: white;
+  display: none; /* Affichage sur clic OpenLink */
+
+}
+
+/* Les filtres ! Tout ce qui commence par "filt" concerne les filtres (oui oui) */
+#filt_Close {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  color: gray;
+  font-size: 70%;
+  font-family: sans-serif;
+}
+#filt_Open {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgba(255, 255, 255, 0.701961);
+  background-image: none;
+  background-origin: padding-box;
+  background-size: auto;
+  clear: both;
+  color: rgb(51, 51, 51);
+  cursor: auto;
+  display: block;
+  float: right;
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  height: 16px;
+  line-height: 16.5px;
+  margin: 0px;
+  padding: 0px 5px;
+  pointer-events: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 7;
+}
+#filt_FormSpaceButton {
+  position: absolute;
+  right: 2px;
+  top: 20px;
+  height: 110px;
+  background-color: lime;
+}
