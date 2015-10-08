@@ -10,9 +10,7 @@
   <script src="scripting/filtres.js"></script>
 
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
-  <script src="scripting/gmaps.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="scripting/cluster.js"></script>
   <link rel="stylesheet" href="scripting/cluster.css" />
 </head>
