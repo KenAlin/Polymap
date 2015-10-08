@@ -98,7 +98,7 @@
     var markers = new L.MarkerClusterGroup();
 
     // Parcours du fichier geojson pour ajouter les points
-		$.getJSON("files/mapHT.geojson", function(data) {
+		$.getJSON("files/maps2.geojson", function(data) {
 			var geojson = L.geoJson(data, {
 				onEachFeature: function (feature, layer) {
 					layer.bindPopup(feature.properties.nom);
