@@ -98,18 +98,33 @@
     var markers = new L.MarkerClusterGroup();
 
     // Parcours du fichier geojson pour ajouter les points
-		$.getJSON("files/maps2.geojson", function(data) {
+		$.getJSON("files/students.geojson", function(data) {
 			var geojson = L.geoJson(data, {
-				onEachFeature: function (feature, layer) {
-					layer.bindPopup(feature.properties.nom);
-				},
 				pointToLayer: function(feature, latlng) {
-					if (feature.properties.acces_pmr == "oui") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeIG})); }
-					else if (feature.properties.abri == "oui") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeSTE})); }
+					if (feature.properties.section == "IG") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeIG}).bindPopup(feature.properties.nom)); }
+					else if (feature.properties.section == "STE") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeSTE}).bindPopup(feature.properties.nom)); }
+          else if (feature.properties.section == "STIA") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeSTIA}).bindPopup(feature.properties.nom)); }
+          else if (feature.properties.section == "MAT") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeMAT}).bindPopup(feature.properties.nom)); }
+          else if (feature.properties.section == "MEA") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeMEA}).bindPopup(feature.properties.nom)); }
+          else if (feature.properties.section == "SE") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeSE}).bindPopup(feature.properties.nom)); }
+          else if (feature.properties.section == "ENR") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeENR}).bindPopup(feature.properties.nom)); }
+          else if (feature.properties.section == "MI") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeMI}).bindPopup(feature.properties.nom)); }
+          else if (feature.properties.section == "MSI") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeMSI}).bindPopup(feature.properties.nom)); }
+          else if (feature.properties.section == "EGC") {
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeEGC}).bindPopup(feature.properties.nom)); }
+
+          // Sinon, pas de section (weird)
 					else {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeSTIA})); }
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeIG})); }
 				}
 			});
 

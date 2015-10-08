@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2015-10-08T21:15:02Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Etudiant UN",
+        "entreprise": "Ma Boite Fait Des Vidéos",
+        "date_deb": "111111",
+        "date_fin": "333333",
+        "section": "IG"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.1583943,
+          43.6144551
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Etudiant DEUX",
+        "entreprise": "Ma Boite Fait Des Vidéos",
+        "date_deb": "222222",
+        "date_fin": "444444",
+        "section": "STE"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.1583943,
+          43.6144551
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Etudiant TROIS",
+        "entreprise": "Mon Jardin Est Rentabe",
+        "date_deb": "555555",
+        "date_fin": "777777",
+        "section": "STIA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.1380627,
+          43.6754912
+        ]
+      }
+    }
+  ]
+}
