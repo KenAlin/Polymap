@@ -95,7 +95,11 @@
     });
 
     // Les merkers peuveur être rassemblés quand on est en dézoomé
-    var markers = new L.MarkerClusterGroup();
+    var markers = new L.MarkerClusterGroup({
+      iconCreateFunction: function(cluster) {
+          return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>', className: 'mycluster', iconSize: L.point(40, 40)});
+      }
+    });
 
     // Parcours du fichier geojson pour ajouter les points
 		$.getJSON("files/students.geojson", function(data) {
@@ -124,7 +128,7 @@
 
           // Sinon, pas de section (weird)
 					else {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeIG})); }
+						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeIG}).bindPopup(feature.properties.nom)); }
 				}
 			});
 

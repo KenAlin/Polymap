@@ -5,6 +5,18 @@
 	transition: transform 0.3s ease-out, opacity 0.3s ease-in;
 	}
 
+.mycluster {
+	background-image: url('../files/picto/POLY.png');
+	background-repeat: no-repeat;
+	background-position: top;
+	text-align: center;
+	font-size: 125%;
+	padding-top: 11px;
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+}
+
   .marker-cluster-small {
 	background-color: rgba(181, 226, 140, 0.6);
 	}
