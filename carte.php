@@ -24,18 +24,58 @@
   <div id="filtres">
     <div id="filt_Close">
       <a href="#" onclick="masqueFiltres();" id="filt_CloseLink">[X]</a>
+    </div>
 
       <form onsubmit="" action="#">
         <div id="filt_FormContent">
-          
+          <label>
+            <input type="radio" name="section" value="all" checked />
+            <img src="files/picto/POLY.png" width="64px" height="64px" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="IG" />
+            <img src="files/picto/IG.png" width="64px" height="64px" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="EGC" />
+            <img src="files/picto/EGC.png" width="64px" height="64px" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="MAT" />
+            <img src="files/picto/MAT.png" width="64px" height="64px" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="MEA" />
+            <img src="files/picto/MEA.png" width="64px" height="64px" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="MI" />
+            <img src="files/picto/MI.png" width="64px" height="64px" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="MSI" />
+            <img src="files/picto/MSI.png" width="64px" height="64px" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="SE" />
+            <img src="files/picto/SE.png" width="64px" height="64px" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="STE" />
+            <img src="files/picto/STE.png" width="64px" height="64px" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="STIA" />
+            <img src="files/picto/STIA.png" width="64px" height="64px" />
+          </label>
         </div>
 
         <div id="filt_FormSpaceButton">
-          <button type="submit" value="Submit">Appliquer</button>
+          <input type="image" src="files/gotowork.png" alt="Appliquer" width="110" height="110">
         </div>
       </form>
 
-    </div>
+
   </div>
 
 	<script>
