@@ -83,52 +83,52 @@
 		icones["EGC"] = L.icon({
 			iconUrl: 'files/picto/EGC.png',
 			shadowUrl: null, iconSize: [26, 26],
-      shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
 		icones["IG"] = L.icon({
 			iconUrl: 'files/picto/IG.png',
 			shadowUrl: null, iconSize: [26, 26],
-      shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
 		icones["MAT"] = L.icon({
 			iconUrl: 'files/picto/MAT.png',
 			shadowUrl: null, iconSize: [26, 26],
-      shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
     icones["MEA"] = L.icon({
 			iconUrl: 'files/picto/MEA.png',
 			shadowUrl: null, iconSize: [26, 26],
-      shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
     icones["MI"] = L.icon({
 			iconUrl: 'files/picto/MI.png',
 			shadowUrl: null, iconSize: [26, 26],
-      shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
     icones["MSI"] = L.icon({
 			iconUrl: 'files/picto/MSI.png',
 			shadowUrl: null, iconSize: [26, 26],
-      shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
     icones["SE"] = L.icon({
 			iconUrl: 'files/picto/SE.png',
 			shadowUrl: null, iconSize: [26, 26],
-      shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
     icones["STE"] = L.icon({
 			iconUrl: 'files/picto/STE.png',
 			shadowUrl: null, iconSize: [26, 26],
-      shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
     icones["STIA"] = L.icon({
 			iconUrl: 'files/picto/STIA.png',
 			shadowUrl: null, iconSize: [26, 26],
-      shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
 
     // Imagerie Mapbox
     var mapboxTiles =  L.tileLayer('http://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    	attribution: 'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    	attribution: 'Tuiles depuis <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Données cartographiques &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     	subdomains: 'abcd',
     	id: 'kevinse.cifidxh3100woucknrdf98z2y',
     	accessToken: 'pk.eyJ1Ijoia2V2aW5zZSIsImEiOiJjaWZpZHhoOWkwMHdndGNseGRxc3A0d3U1In0.N5FbDKd9BQlcYh8bwsLVCA'
@@ -185,6 +185,7 @@
       map.fitBounds(markers.getBounds());
       mapboxTiles.addTo(map);
       map.addLayer(markers);
+
       return false;
     }
 	</script>
