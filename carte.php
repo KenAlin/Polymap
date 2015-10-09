@@ -29,43 +29,47 @@
         <div id="filt_FormContent">
           <label>
             <input type="radio" name="section" value="all" checked />
-            <img src="files/picto/POLY.png" width="64px" height="64px" />
+            <img src="files/picto/POLY.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
           <label>
             <input type="radio" name="section" value="IG" />
-            <img src="files/picto/IG.png" width="64px" height="64px" />
+            <img src="files/picto/IG.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
           <label>
             <input type="radio" name="section" value="EGC" />
-            <img src="files/picto/EGC.png" width="64px" height="64px" />
+            <img src="files/picto/EGC.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
+          </label>
+          <label>
+            <input type="radio" name="section" value="ENR" />
+            <img src="files/picto/ENR.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
           <label>
             <input type="radio" name="section" value="MAT" />
-            <img src="files/picto/MAT.png" width="64px" height="64px" />
+            <img src="files/picto/MAT.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
           <label>
             <input type="radio" name="section" value="MEA" />
-            <img src="files/picto/MEA.png" width="64px" height="64px" />
+            <img src="files/picto/MEA.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
           <label>
             <input type="radio" name="section" value="MI" />
-            <img src="files/picto/MI.png" width="64px" height="64px" />
+            <img src="files/picto/MI.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
           <label>
             <input type="radio" name="section" value="MSI" />
-            <img src="files/picto/MSI.png" width="64px" height="64px" />
+            <img src="files/picto/MSI.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
           <label>
             <input type="radio" name="section" value="SE" />
-            <img src="files/picto/SE.png" width="64px" height="64px" />
+            <img src="files/picto/SE.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
           <label>
             <input type="radio" name="section" value="STE" />
-            <img src="files/picto/STE.png" width="64px" height="64px" />
+            <img src="files/picto/STE.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
           <label>
             <input type="radio" name="section" value="STIA" />
-            <img src="files/picto/STIA.png" width="64px" height="64px" />
+            <img src="files/picto/STIA.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
           </label>
         </div>
 
@@ -125,6 +129,11 @@
 			shadowUrl: null, iconSize: [26, 26],
       iconAnchor: [13, 13], popupAnchor:  [0, -10]
 		});
+    icones["ENR"] = L.icon({
+			iconUrl: 'files/picto/ENR.png',
+			shadowUrl: null, iconSize: [26, 26],
+      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+		});
 
     // Imagerie Mapbox
     var mapboxTiles =  L.tileLayer('http://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -164,6 +173,7 @@
 
     function appliquerFiltres() {
       var checkedSection = $('input[name=section]:checked', '#filt_Form').val();
+
       overlays.clearLayers();
       markers = new L.MarkerClusterGroup({
         iconCreateFunction: function(cluster) {
@@ -185,6 +195,7 @@
       map.fitBounds(markers.getBounds());
       mapboxTiles.addTo(map);
       map.addLayer(markers);
+
 
       return false;
     }
