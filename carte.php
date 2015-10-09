@@ -7,12 +7,11 @@
      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.ie.css" />
   <![endif]-->
   <link rel="stylesheet" href="polymap.css" />
-  <script src="scripting/filtres.js"></script>
-
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="scripting/cluster.js"></script>
   <link rel="stylesheet" href="scripting/cluster.css" />
+  <script src="scripting/filtres.js"></script>
 </head>
 <body>
   <div id="mapP"></div>
@@ -26,7 +25,7 @@
       <a href="#" onclick="masqueFiltres();" id="filt_CloseLink">[X]</a>
     </div>
 
-      <form onsubmit="" action="#">
+      <form enctype="multipart/form-data" name="filt_Form" id="filt_Form" action="" method="post">
         <div id="filt_FormContent">
           <label>
             <input type="radio" name="section" value="all" checked />
@@ -71,7 +70,7 @@
         </div>
 
         <div id="filt_FormSpaceButton">
-          <input type="image" src="files/gotowork.png" alt="Appliquer" width="110" height="110">
+          <img src="files/gotowork.png" alt="Appliquer" width="110" height="110" onclick="appliquerFiltres();" />
         </div>
       </form>
 
@@ -80,47 +79,48 @@
 
 	<script>
     // Définition des icônes des sections
-		var iconeEGC = L.icon({
+    var icones = new Array();
+		icones["EGC"] = L.icon({
 			iconUrl: 'files/picto/EGC.png',
 			shadowUrl: null, iconSize: [26, 26],
       shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
 		});
-		var iconeIG = L.icon({
+		icones["IG"] = L.icon({
 			iconUrl: 'files/picto/IG.png',
 			shadowUrl: null, iconSize: [26, 26],
       shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
 		});
-		var iconeMAT = L.icon({
+		icones["MAT"] = L.icon({
 			iconUrl: 'files/picto/MAT.png',
 			shadowUrl: null, iconSize: [26, 26],
       shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
 		});
-    var iconeMEA = L.icon({
+    icones["MEA"] = L.icon({
 			iconUrl: 'files/picto/MEA.png',
 			shadowUrl: null, iconSize: [26, 26],
       shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
 		});
-    var iconeMI = L.icon({
+    icones["MI"] = L.icon({
 			iconUrl: 'files/picto/MI.png',
 			shadowUrl: null, iconSize: [26, 26],
       shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
 		});
-    var iconeMSI = L.icon({
+    icones["MSI"] = L.icon({
 			iconUrl: 'files/picto/MSI.png',
 			shadowUrl: null, iconSize: [26, 26],
       shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
 		});
-    var iconeSE = L.icon({
+    icones["SE"] = L.icon({
 			iconUrl: 'files/picto/SE.png',
 			shadowUrl: null, iconSize: [26, 26],
       shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
 		});
-    var iconeSTE = L.icon({
+    icones["STE"] = L.icon({
 			iconUrl: 'files/picto/STE.png',
 			shadowUrl: null, iconSize: [26, 26],
       shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
 		});
-    var iconeSTIA = L.icon({
+    icones["STIA"] = L.icon({
 			iconUrl: 'files/picto/STIA.png',
 			shadowUrl: null, iconSize: [26, 26],
       shadowSize: [0, 0], iconAnchor: [6, 6], shadowAnchor: [6, -6], popupAnchor:  [6, -6]
@@ -134,51 +134,59 @@
     	accessToken: 'pk.eyJ1Ijoia2V2aW5zZSIsImEiOiJjaWZpZHhoOWkwMHdndGNseGRxc3A0d3U1In0.N5FbDKd9BQlcYh8bwsLVCA'
     });
 
-    // Les merkers peuveur être rassemblés quand on est en dézoomé
+    var map = L.map('mapP', {
+        twoFingerZoom: true,
+        maxZoom: 18
+     });
+     var overlays = L.layerGroup().addTo(map);
+
+    // Les markers peuveur être rassemblés quand on est en dézoomé
     var markers = new L.MarkerClusterGroup({
       iconCreateFunction: function(cluster) {
           return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>', className: 'mycluster', iconSize: L.point(40, 40)});
       }
-    });
-
+    }).addTo(overlays);
+    var geojson;
     // Parcours du fichier geojson pour ajouter les points
 		$.getJSON("files/students.geojson", function(data) {
-			var geojson = L.geoJson(data, {
+			geojson = L.geoJson(data, {
 				pointToLayer: function(feature, latlng) {
-					if (feature.properties.section == "IG") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeIG}).bindPopup(feature.properties.nom)); }
-					else if (feature.properties.section == "STE") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeSTE}).bindPopup(feature.properties.nom)); }
-          else if (feature.properties.section == "STIA") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeSTIA}).bindPopup(feature.properties.nom)); }
-          else if (feature.properties.section == "MAT") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeMAT}).bindPopup(feature.properties.nom)); }
-          else if (feature.properties.section == "MEA") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeMEA}).bindPopup(feature.properties.nom)); }
-          else if (feature.properties.section == "SE") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeSE}).bindPopup(feature.properties.nom)); }
-          else if (feature.properties.section == "ENR") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeENR}).bindPopup(feature.properties.nom)); }
-          else if (feature.properties.section == "MI") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeMI}).bindPopup(feature.properties.nom)); }
-          else if (feature.properties.section == "MSI") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeMSI}).bindPopup(feature.properties.nom)); }
-          else if (feature.properties.section == "EGC") {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeEGC}).bindPopup(feature.properties.nom)); }
-
-          // Sinon, pas de section (weird)
-					else {
-						return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: iconeIG}).bindPopup(feature.properties.nom)); }
+          return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: icones[feature.properties.section]}).bindPopup(feature.properties.nom));
 				}
 			});
 
       // Création de la carte et ajout des points
-      var map = L.map('mapP', {
-          twoFingerZoom: true
-       }).fitBounds(markers.getBounds());
+      map.fitBounds(markers.getBounds());
       mapboxTiles.addTo(map);
       map.addLayer(markers);
+
 		});
+
+    function appliquerFiltres() {
+      var checkedSection = $('input[name=section]:checked', '#filt_Form').val();
+      overlays.clearLayers();
+      markers = new L.MarkerClusterGroup({
+        iconCreateFunction: function(cluster) {
+            return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>', className: 'mycluster', iconSize: L.point(40, 40)});
+        }
+      }).addTo(overlays);
+
+      $.getJSON("files/students.geojson", function(data) {
+  			geojson = L.geoJson(data, {
+  				pointToLayer: function(feature, latlng) {
+            return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: icones[feature.properties.section]}).bindPopup(feature.properties.nom));
+  				},
+          filter: function(feature, layer) {
+            return (feature.properties.section == checkedSection) || checkedSection == "all";
+          }
+  			})
+      });
+      // Création de la carte et ajout des points
+      map.fitBounds(markers.getBounds());
+      mapboxTiles.addTo(map);
+      map.addLayer(markers);
+      return false;
+    }
 	</script>
 </body>
 </html>

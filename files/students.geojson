@@ -71,6 +71,23 @@
           43.6144551
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Etudiant CINQ",
+        "entreprise": "Ma Boite Fait Des Vidéos",
+        "date_deb": "111111",
+        "date_fin": "333333",
+        "section": "IG"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.1783973,
+          43.5344451
+        ]
+      }
     }
   ]
 }
