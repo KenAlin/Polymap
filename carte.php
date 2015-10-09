@@ -18,7 +18,7 @@
   <div id="mapP"></div>
 
   <div id="filt_Open">
-    <a href="#" onclick="afficheFiltres();" id="filt_OpenLink">Afficher les filtres</a>
+    <a href="#" onclick="afficheFiltres();" id="filt_OpenLink"><img src="files/gear.png" width="65px" height="65px" /></a>
   </div>
 
   <div id="filtres">
@@ -27,7 +27,7 @@
 
       <form onsubmit="" action="#">
         <div id="filt_FormContent">
-
+          
         </div>
 
         <div id="filt_FormSpaceButton">
