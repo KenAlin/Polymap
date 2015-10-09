@@ -54,6 +54,23 @@
           43.6754912
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Etudiant QUATRE",
+        "entreprise": "Mon Roquefor Sent Mauvais",
+        "date_deb": "222222",
+        "date_fin": "444444",
+        "section": "MAT"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.1583943,
+          43.6144551
+        ]
+      }
     }
   ]
 }
