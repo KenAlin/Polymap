@@ -85,54 +85,54 @@
     // Définition des icônes des sections
     var icones = new Array();
 		icones["EGC"] = L.icon({
-			iconUrl: 'files/picto/EGC.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/EGC.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
 		icones["IG"] = L.icon({
-			iconUrl: 'files/picto/IG.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/IG.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
 		icones["MAT"] = L.icon({
-			iconUrl: 'files/picto/MAT.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/MAT.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
     icones["MEA"] = L.icon({
-			iconUrl: 'files/picto/MEA.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/MEA.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
     icones["MI"] = L.icon({
-			iconUrl: 'files/picto/MI.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/MI.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
     icones["MSI"] = L.icon({
-			iconUrl: 'files/picto/MSI.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/MSI.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
     icones["SE"] = L.icon({
-			iconUrl: 'files/picto/SE.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/SE.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
     icones["STE"] = L.icon({
-			iconUrl: 'files/picto/STE.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/STE.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
     icones["STIA"] = L.icon({
-			iconUrl: 'files/picto/STIA.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/STIA.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
     icones["ENR"] = L.icon({
-			iconUrl: 'files/picto/ENR.png',
-			shadowUrl: null, iconSize: [26, 26],
-      iconAnchor: [13, 13], popupAnchor:  [0, -10]
+			iconUrl: 'files/picto2/ENR.png',
+			shadowUrl: null, iconSize: [42, 42],
+      iconAnchor: [21, 42], popupAnchor:  [0, -40]
 		});
 
     // Imagerie Mapbox
