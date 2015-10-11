@@ -2,14 +2,14 @@
 <html>
 <head>
   <title>Polymap de tests</title>
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
-  <!--[if lte IE 8]>
-     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.ie.css" />
-  <![endif]-->
-  <link rel="stylesheet" href="polymap.css" />
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+    <!--[if lte IE 8]>
+       <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.ie.css" />
+    <![endif]-->
   <script src="scripting/cluster.js"></script>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+  <link rel="stylesheet" href="polymap.css" />
   <link rel="stylesheet" href="scripting/cluster.css" />
   <script src="scripting/filtres.js"></script>
 </head>
@@ -26,7 +26,7 @@
     </div>
 
       <form enctype="multipart/form-data" name="filt_Form" id="filt_Form" action="" method="post">
-        <div id="filt_FormContent">
+        <div class="filt_FormContent">
           <label>
             <input type="radio" name="section" value="all" checked />
             <img src="files/picto/POLY.png" width="64px" height="64px" onclick="setTimeout(function() {appliquerFiltres();}, 50);" />
@@ -73,7 +73,11 @@
           </label>
         </div>
 
-        <div id="filt_FormSpaceButton">
+        <div class="filt_FormContent">
+
+        </div>
+
+        <div id="filt_FormSpaceButton" style="display: none;">
           <img src="files/gotowork.png" alt="Appliquer" width="110" height="110" onclick="appliquerFiltres();" />
         </div>
       </form>
@@ -143,19 +147,24 @@
     	accessToken: 'pk.eyJ1Ijoia2V2aW5zZSIsImEiOiJjaWZpZHhoOWkwMHdndGNseGRxc3A0d3U1In0.N5FbDKd9BQlcYh8bwsLVCA'
     });
 
+    // Définition de la map (lien sur le div d'id #mapP)
     var map = L.map('mapP', {
-        twoFingerZoom: true,
-        maxZoom: 18
+      twoFingerZoom: true,
+      maxZoom: 18
      });
-     var overlays = L.layerGroup().addTo(map);
+
+    // Overlays est un groupe de couches, on y ajoutera les markers plus tard
+    var overlays = L.layerGroup().addTo(map);
 
     // Les markers peuveur être rassemblés quand on est en dézoomé
     var markers = new L.MarkerClusterGroup({
       iconCreateFunction: function(cluster) {
-          return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>', className: 'mycluster', iconSize: L.point(40, 40)});
+        return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>', className: 'polyCluster', iconSize: L.point(40, 40)});
       }
     }).addTo(overlays);
+
     var geojson;
+    var getJsonData;
     // Parcours du fichier geojson pour ajouter les points
 		$.getJSON("files/students.geojson", function(data) {
 			geojson = L.geoJson(data, {
@@ -171,31 +180,81 @@
 
 		});
 
-    function appliquerFiltres() {
-      var checkedSection = $('input[name=section]:checked', '#filt_Form').val();
+    /* NEW VERSION *******************************************
+    // Parcours du fichier geojson pour ajouter les points
+		$.getJSON("files/students.geojson", function(data) {
+			getJsonData = data;
+      appliquerFiltres();
 
+		});
+
+    */
+
+    function appliquerFiltres() {
+      // Fonction appelée à chaque clic sur un filtre, avec un délai de 50ms (propriété onclick)
+      var checkedSection = $('input[name=section]:checked', '#filt_Form').val();
+      var checkedDebut = $('input[name=dateDebut]:checked', '#filt_Form').val();
+      var checkedFin = $('input[name=dateFin]:checked', '#filt_Form').val();
+      var checkedPromo = $('input[name=promo]:checked', '#filt_Form').val();
+
+      // Nettoyage des filtres : on enlève tout !
       overlays.clearLayers();
+
+      // Et on recrée une couche markers, comme avant
       markers = new L.MarkerClusterGroup({
         iconCreateFunction: function(cluster) {
-            return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>', className: 'mycluster', iconSize: L.point(40, 40)});
+          return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>', className: 'mycluster', iconSize: L.point(40, 40)});
         }
       }).addTo(overlays);
 
+      // Récupération (encore) du fichier de données json (à voir si on peut le garder en mémoire ?)
       $.getJSON("files/students.geojson", function(data) {
   			geojson = L.geoJson(data, {
   				pointToLayer: function(feature, latlng) {
             return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: icones[feature.properties.section]}).bindPopup(feature.properties.nom));
   				},
           filter: function(feature, layer) {
-            return (feature.properties.section == checkedSection) || checkedSection == "all";
+            // Définition des filtres (true forcé pour les non développés)
+            var filtreSection = (feature.properties.section == checkedSection) || checkedSection == "all";
+            // var filtreDebut = (feature.properties.dateDebut == checkedDebut) || checkedDebut == "all";
+            // var filtreFin = (feature.properties.dateFin == checkedFin) || checkedFin == "all";
+            // var filtrePromo = (feature.properties.promo == checkedPromo) || checkedPromo == "all";
+            var filtreDebut = true;
+            var filtreFin = true;
+            var filtrePromo = true;
+
+            // Sélectionne seulement les évènements qui correspondent dimultanément à tous les critères.
+            return filtreSection && filtreDebut && filtreFin && filtrePromo;
           }
   			})
       });
+
+      /* NEW VERSION *******************************************
+      // Récupération (encore) du fichier de données json (à voir si on peut le garder en mémoire ?)
+      geojson = L.geoJson(getJsonData, {
+        pointToLayer: function(feature, latlng) {
+          return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: icones[feature.properties.section]}).bindPopup(feature.properties.nom));
+        },
+        filter: function(feature, layer) {
+          // Définition des filtres (true forcé pour les non développés)
+          var filtreSection = (feature.properties.section == checkedSection) || checkedSection == "all";
+          // var filtreDebut = (feature.properties.dateDebut == checkedDebut) || checkedDebut == "all";
+          // var filtreFin = (feature.properties.dateFin == checkedFin) || checkedFin == "all";
+          // var filtrePromo = (feature.properties.promo == checkedPromo) || checkedPromo == "all";
+          var filtreDebut = true;
+          var filtreFin = true;
+          var filtrePromo = true;
+
+          // Sélectionne seulement les évènements qui correspondent dimultanément à tous les critères.
+          return filtreSection && filtreDebut && filtreFin && filtrePromo;
+        }
+      });
+      */
+
       // Création de la carte et ajout des points
       map.fitBounds(markers.getBounds());
       mapboxTiles.addTo(map);
       map.addLayer(markers);
-
 
       return false;
     }
