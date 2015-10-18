@@ -182,7 +182,7 @@
     var getJsonData;
 
     // Parcours du fichier geojson pour ajouter les points
-		$.getJSON("files/exStClear.geojson", function(data) {
+		$.getJSON("files/stdBigExample.geojson", function(data) {
 			getJsonData = data;
       appliquerFiltres();
 
@@ -208,7 +208,7 @@
       // Et on applique les filtres !!
       geojson = L.geoJson(getJsonData, {
         pointToLayer: function(feature, latlng) {
-          return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[0],feature.geometry.coordinates[1]),{icon: icones[feature.properties.section]}).bindPopup(feature.properties.nom));
+          return markers.addLayer(new L.Marker(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]),{icon: icones[feature.properties.section]}).bindPopup(feature.properties.nom));
         },
         filter: function(feature, layer) {
           // Définition des filtres (true forcé pour les non développés)

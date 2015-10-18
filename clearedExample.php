@@ -9,8 +9,8 @@ function file_get_contents_utf8($fn) {
 }
 
 setlocale (LC_TIME, 'fr_FR.utf8','fra');
-$fichier = "files/students.geojson";
-$content = file_get_contents($fichier);
+$fichier = "https://api.mapbox.com/v4/geocode/mapbox.places/1600+pennsylvania+ave+nw.json?access_token=pk.eyJ1Ijoia2V2aW5zZSIsImEiOiJjaWZpZHhoOWkwMHdndGNseGRxc3A0d3U1In0.N5FbDKd9BQlcYh8bwsLVCA";
+$content = file_get_contents_utf8($fichier);
 
 $contentFile = trim($content);
 $decoded = json_decode($contentFile, true);

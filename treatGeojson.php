@@ -32,7 +32,7 @@ $detectSimilar = Array(
 // Traitement cas par cas
 foreach ($decoded["polyMap"] as $stagiaire) {
   // On veut détecter et supprimer les stages identiques. Postulat simple : un même étudiant, identifié par son adresse mail, ne peut pas avoir deux stages avec les mêmes date de début et date de fin.
-  if ($i > 225 || $stagiaire[2] == $detectSimilar["mail"] && $stagiaire[7] == $detectSimilar["dateDebut"] && $stagiaire[8] == $detectSimilar["dateFin"]) {
+  if ($i > 559 || $stagiaire[2] == $detectSimilar["mail"] && $stagiaire[7] == $detectSimilar["dateDebut"] && $stagiaire[8] == $detectSimilar["dateFin"]) {
     // C'est le même stage que celui du haut : ON DELETE !
     unset($stagiaire);
   }
@@ -89,22 +89,30 @@ foreach ($decoded["polyMap"] as $stagiaire) {
     $adressePourUrl = urlencode($concatAdresse);
     $adresseGoogle = "http://maps.google.com/maps/api/geocode/json?address={$adressePourUrl}&sensor=false";
 
-    if ($i<226) {
+    if ($i<560) {
       $moissonGoogle = file_get_contents_utf8($adresseGoogle);
-
       $decodeGoogle = json_decode($moissonGoogle, true);
       $stagiaireTraite["geometry"]["type"] = "Point";
 			if ($decodeGoogle[results][0]["geometry"]["location"]["lat"]) {
 				$stagiaireTraite["geometry"]["coordinates"] = Array(
-	        $decodeGoogle[results][0]["geometry"]["location"]["lat"],
-	        $decodeGoogle[results][0]["geometry"]["location"]["lng"]
+	        $decodeGoogle[results][0]["geometry"]["location"]["lng"],
+	        $decodeGoogle[results][0]["geometry"]["location"]["lat"]
 	      );
 				$sauvegardeResultats["features"][] = $stagiaireTraite;
 				$i++;
 			}
+			else {
+				$adresseMapbox = "https://api.mapbox.com/v4/geocode/mapbox.places/{$adressePourUrl}.json?access_token=pk.eyJ1Ijoia2V2aW5zZSIsImEiOiJjaWZpZHhoOWkwMHdndGNseGRxc3A0d3U1In0.N5FbDKd9BQlcYh8bwsLVCA";
+				$moissonMapbox = file_get_contents_utf8($adresseMapbox);
+	      $decodeMapbox = json_decode($moissonMapbox, true);
+				if ($decodeMapbox[features][0]["geometry"]) {
+					$stagiaireTraite["geometry"] = $decodeMapbox[features][0]["geometry"];
+					$sauvegardeResultats["features"][] = $stagiaireTraite;
+					$i++;
+				}
+			}
     }
   }
-
 }
 
 //print_r($sauvegardeResultats);
