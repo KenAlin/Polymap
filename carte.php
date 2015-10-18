@@ -159,13 +159,17 @@
     	attribution: 'Tuiles &copy;<a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Données cartographiques <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     	subdomains: 'abcd',
     	id: 'kevinse.cifidxh3100woucknrdf98z2y',
-    	accessToken: 'pk.eyJ1Ijoia2V2aW5zZSIsImEiOiJjaWZpZHhoOWkwMHdndGNseGRxc3A0d3U1In0.N5FbDKd9BQlcYh8bwsLVCA'
+    	accessToken: 'pk.eyJ1Ijoia2V2aW5zZSIsImEiOiJjaWZpZHhoOWkwMHdndGNseGRxc3A0d3U1In0.N5FbDKd9BQlcYh8bwsLVCA',
+      continuousWorld: false,
+      noWrap: true,
+      unloadInvisibleTiles: true
     });
 
     // Définition de la map (lien sur le div d'id #mapP)
     var map = L.map('mapP', {
       twoFingerZoom: true,
-      maxZoom: 18
+      maxZoom: 18,
+      minZoom: 2
      });
 
     // Overlays est un groupe de couches, on y ajoutera les markers plus tard

@@ -1,8 +1,4 @@
 {
-  "type": "FeatureCollection",
-  "generator": "overpass-turbo",
-  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
-  "timestamp": "2015-10-08T21:15:02Z",
   "features": [
     {
       "type": "Feature",
@@ -25,7 +21,7 @@
       "type": "Feature",
       "properties": {
         "nom": "Etudiant DEUX",
-        "entreprise": "Ma Boite Fait Des Vidéos",
+        "entreprise": "Glou glou industries",
         "date_deb": "222222",
         "date_fin": "444444",
         "section": "STE"
@@ -42,7 +38,7 @@
       "type": "Feature",
       "properties": {
         "nom": "Etudiant TROIS",
-        "entreprise": "Mon Jardin Est Rentabe",
+        "entreprise": "Mon Jardin Est Rentable",
         "date_deb": "555555",
         "date_fin": "777777",
         "section": "STIA"
@@ -59,10 +55,10 @@
       "type": "Feature",
       "properties": {
         "nom": "Etudiant QUATRE",
-        "entreprise": "Mon Roquefor Sent Mauvais",
+        "entreprise": "Mon Pont Ne Tient Pas",
         "date_deb": "222222",
         "date_fin": "444444",
-        "section": "MAT"
+        "section": "EGC"
       },
       "geometry": {
         "type": "Point",
@@ -76,7 +72,7 @@
       "type": "Feature",
       "properties": {
         "nom": "Etudiant CINQ",
-        "entreprise": "Ma Boite Fait Des Vidéos",
+        "entreprise": "Ma Boite Fait Des Remakes",
         "date_deb": "111111",
         "date_fin": "333333",
         "section": "IG"
