@@ -46,10 +46,24 @@ foreach ($decoded["polyMap"] as $stagiaire) {
 
     $stagiaireTraite["type"] = "Feature";
 
+    // Traitement Dates du stage
+    $stagiaireTraite["properties"]["date_deb"] = strtotime($stagiaire[7]);
+    $stagiaireTraite["properties"]["date_fin"] = strtotime($stagiaire[8]);
+
+    // Traitement Nom du stage (anonymisé)
+    $dateDebutStage = strftime("%A %d %B %Y", $stagiaireTraite["properties"]["date_deb"]);
+    $dateFinStage = strftime("%A %d %B %Y", $stagiaireTraite["properties"]["date_fin"]);
+    $texteDates = utf8_encode("Du {$dateDebutStage}<br />Au {$dateFinStage}");
+    
+    // Traitement Promotion du stagiaire = Année Stage + 5 ans de formation - Année étudiant lors du stage
+    $stagiaire[3] = intval(substr($dateDebutStage, -4)) + 5 - intval($stagiaire[5]);
+    $stagiaireTraite["properties"]["promo"] = $stagiaire[3];
+
     // Traitement Section du stagiaire
     $stagiaire[4] = preg_replace("#[0-9]([a-z]*)#", "", $stagiaire[4]);
-    if ($stagiaire[5] < 3) {
+    if ($stagiaire[5] < 3 && (strval($stagiaire[3]).'-07-01' > date('Y-m-d'))) {
       // Si l'année est 1 ou 2, alors c'est forcément un PeiP (merci Dylan !)
+      // Si le stagiaire n'est pas encore diplomé
       $stagiaire[4] = "PeiP";
     }
 	else if ($stagiaire[4] == "STIA" || $stagiaire[4] == "STIAEC") {
@@ -70,17 +84,6 @@ foreach ($decoded["polyMap"] as $stagiaire) {
 	}
 	$stagiaireTraite["properties"]["section"] = $stagiaire[4];
 
-	// Traitement Promotion du stagiaire (!! ne pas faire confiance à cette valeur !!)
-	//$stagiaireTraite["properties"]["promo"] = $stagiaire[3];
-
-    // Traitement Dates du stage
-    $stagiaireTraite["properties"]["date_deb"] = strtotime($stagiaire[7]);
-    $stagiaireTraite["properties"]["date_fin"] = strtotime($stagiaire[8]);
-
-    // Traitement Nom du stage (anonymisé)
-    $dateDebutStage = strftime("%A %d %B %Y", $stagiaireTraite["properties"]["date_deb"]);
-    $dateFinStage = strftime("%A %d %B %Y", $stagiaireTraite["properties"]["date_fin"]);
-    $texteDates = utf8_encode("Du {$dateDebutStage}<br />Au {$dateFinStage}");
     if($stagiaire[5] > 5)
     {
     	$nom = "<b>Diplomé {$stagiaire[4]}</b><br />";
@@ -89,8 +92,6 @@ foreach ($decoded["polyMap"] as $stagiaire) {
     {
     	$nom = "<b>Étudiant {$stagiaire[4]} de {$stagiaire[5]}è année</b><br />";
     }
-    // Traitement Promotion du stagiaire = Année Stage + 5 ans de formation - Année étudiant lors du stage
-    $stagiaire[3] = intval(substr($dateDebutStage, -4)) + 5 - intval($stagiaire[5]);
     $nom = $nom . "Promotion {$stagiaire[3]}<br /><br />{$texteDates}";
     $stagiaireTraite["properties"]["nom"] = htmlentities($nom);
 
