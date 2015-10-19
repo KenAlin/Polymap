@@ -57,7 +57,7 @@ foreach ($decoded["polyMap"] as $stagiaire) {
     
     // Traitement Promotion du stagiaire = Année Stage + 5 ans de formation - Année étudiant lors du stage
     $stagiaire[3] = intval(substr($dateDebutStage, -4)) + 5 - intval($stagiaire[5]);
-    $stagiaireTraite["properties"]["promo"] = $stagiaire[3];
+    $stagiaireTraite["properties"]["promo"] = strval($stagiaire[3]);
 
     // Traitement Section du stagiaire
     $stagiaire[4] = preg_replace("#[0-9]([a-z]*)#", "", $stagiaire[4]);
