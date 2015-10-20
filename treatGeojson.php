@@ -58,8 +58,8 @@ foreach ($decoded["polyMap"] as $stagiaire) {
     $stagiaireTraite["properties"]["date_fin"] = strtotime($stagiaire[8]);
 
     // Traitement Nom du stage (anonymisé)
-    $dateDebutStage = strftime("%A %d %B %Y", $stagiaireTraite["properties"]["date_deb"]);
-    $dateFinStage = strftime("%A %d %B %Y", $stagiaireTraite["properties"]["date_fin"]);
+    $dateDebutStage = utf8_encode(strftime("%A %d %B %Y", $stagiaireTraite["properties"]["date_deb"]));
+    $dateFinStage = utf8_encode(strftime("%A %d %B %Y", $stagiaireTraite["properties"]["date_fin"]));
     $texteDates = "Du {$dateDebutStage}<br />Au {$dateFinStage}";
 
     // Traitement Promotion du stagiaire = Année Stage + 5 ans de formation - Année étudiant lors du stage
