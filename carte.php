@@ -5,14 +5,15 @@
   <meta charset="utf-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
-    <!--[if lte IE 8]>
-       <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.ie.css" />
-    <![endif]-->
+  <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.ie.css" />
+  <![endif]-->
   <script src="scripting/cluster.js"></script>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
   <link rel="stylesheet" href="polymap.css" />
   <link rel="stylesheet" href="scripting/cluster.css" />
   <script src="scripting/filtres.js"></script>
+  <!-- <script src="scripting/touch.js"></script> -->
 </head>
 <body>
   <div id="mapP"></div>
@@ -161,13 +162,12 @@
     	id: 'kevinse.cifidxh3100woucknrdf98z2y',
     	accessToken: 'pk.eyJ1Ijoia2V2aW5zZSIsImEiOiJjaWZpZHhoOWkwMHdndGNseGRxc3A0d3U1In0.N5FbDKd9BQlcYh8bwsLVCA',
       continuousWorld: false,
-      noWrap: true,
+      //noWrap: true,
       unloadInvisibleTiles: true
     });
 
     // Définition de la map (lien sur le div d'id #mapP)
     var map = L.map('mapP', {
-      twoFingerZoom: true,
       maxZoom: 18,
       minZoom: 2
      });
@@ -176,17 +176,18 @@
     var overlays = L.layerGroup().addTo(map);
 
     // Les markers peuveur être rassemblés quand on est en dézoomé
-    var markers = new L.MarkerClusterGroup({
+    /* var markers = new L.MarkerClusterGroup({
       iconCreateFunction: function(cluster) {
         return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>', className: 'polyCluster', iconSize: L.point(40, 40)});
       }
-    }).addTo(overlays);
+    }).addTo(overlays); */
+    var markers = new L.MarkerClusterGroup().addTo(overlays);
 
     var geojson;
     var getJsonData;
 
     // Parcours du fichier geojson pour ajouter les points
-		$.getJSON("files/stdBigExample.geojson", function(data) {
+		$.getJSON("files/mappingAnonyme.geojson", function(data) {
 			getJsonData = data;
       setTimeout(function() {appliquerFiltres();}, 550);
 
@@ -203,11 +204,12 @@
       overlays.clearLayers();
 
       // Et on recrée une couche markers, comme avant
-      markers = new L.MarkerClusterGroup({
+      /* markers = new L.MarkerClusterGroup({
         iconCreateFunction: function(cluster) {
           return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>', className: 'polyCluster', iconSize: L.point(40, 40)});
         }
-      }).addTo(overlays);
+      }).addTo(overlays); */
+      markers = new L.MarkerClusterGroup().addTo(overlays);
 
       // Et on applique les filtres !!
       geojson = L.geoJson(getJsonData, {
