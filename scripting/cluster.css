@@ -29,7 +29,7 @@
 	margin-top: 5px;
 	text-align: center;
 	border-radius: 15px;
-	font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font: 12px "PT Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 .marker-cluster span {
 	line-height: 30px;
@@ -37,22 +37,23 @@
 
 /* Clusters par défaut : propriétés par taille */
 .marker-cluster-small {
-	background-image: url('../files/polytech.png');
+	background-image: url('../files/polytech_small.png');
 	background-repeat: no-repeat;
 	background-position: top;
 	border-radius: 0px;
 }
 .marker-cluster-small div {
-	font-size: 95%;
+	font-size: 100%;
 }
 .marker-cluster-medium {
-	background-image: url('../files/polytech.png');
+	background-image: url('../files/polytech_medium.png');
 	background-repeat: no-repeat;
 	background-position: top;
 	border-radius: 0px;
 }
 .marker-cluster-medium div {
 	font-weight: bold;
+	font-size: 115%;
 }
 .marker-cluster-large {
 	background-image: url('../files/polytech.png');
@@ -61,7 +62,7 @@
 	border-radius: 0px;
 }
 .marker-cluster-large div {
-	font-size: 125%;
+	font-size: 115%;
 	font-weight: bold;
 }
 
