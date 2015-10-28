@@ -26,12 +26,16 @@ a {
 }
 
 /* Les filtres ! Tout ce qui commence par "filt" concerne les filtres (oui oui) */
+form {
+  height: 100%;
+  width: 100%;
+}
 #filt_Close {
   position: absolute;
-  top: 0;
+  top: 2px;
   right: 2px;
   color: gray;
-  font-size: 85%;
+  font-size: 95%;
   font-family: sans-serif;
 }
 #filt_Open {
@@ -68,10 +72,33 @@ a {
   height: 110px;
   margin-left: 15px;
 }
+.filt_FormContent {
+  margin: 25px auto 0 auto;
+  text-align: center;
+}
+label {
+   position: relative;
+   width: 64px;
+   margin-left: 2px;
+}
+.filt_TextSection {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 64px;
+  text-align: center;
+  color: white;
+  background-color: rgba(0,0,0,0.66);
+  font-family: sans-serif;
+  padding: 1px 0;
+  z-index: 5;
+  height: 18px;
+  line-height: 18px;
+}
 label > input{
   display:none;
 }
-label > input + img{
+label > input + div + img{
   cursor:pointer;
   -webkit-transition: opacity 0.6s ease-in-out;
   -moz-transition: opacity 0.6s ease-in-out;
@@ -79,8 +106,9 @@ label > input + img{
   -o-transition: opacity 0.6s ease-in-out;
   transition: opacity 0.6s ease-in-out;
 }
-label > input:checked + img{
+label > input:checked + div + img {
+  opacity: 1;
 }
-label > input:not(:checked) + img{
+label > input:not(:checked) + div + img {
   opacity: 0.33;
 }
