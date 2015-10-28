@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="polymap.css" />
   <link rel="stylesheet" href="scripting/cluster.css" />
   <script src="scripting/filtres.js"></script>
-  <!-- <script src="scripting/touch.js"></script> -->
   <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>

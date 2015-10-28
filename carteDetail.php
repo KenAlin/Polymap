@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="polymap.css" />
   <link rel="stylesheet" href="scripting/cluster.css" />
   <script src="scripting/filtres.js"></script>
-  <!-- <script src="scripting/touch.js"></script> -->
   <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -38,7 +37,7 @@
     </div>
 
       <form enctype="multipart/form-data" name="filt_Form" id="filt_Form" action="" method="post">
-        <div class="filt_FormContent">
+        <div class="filt_FormContent filt_FormChoixSection">
           <label>
             <input type="radio" name="section" value="all" checked />
             <div class="filt_TextSection">Tout</div>
@@ -102,7 +101,11 @@
         </div>
 
         <div class="filt_FormContent">
-
+          <p style="font-weight: bold;">Date du stage</p>
+          <label for="rangeDate">
+            <input type="range" name="rangeDate" id="rangeDate" min="0" max="5" step="1" value="0"/>
+          </label>
+          <output for="rangeDate" class="output" id="outputRangeDate">Traitement</output>
         </div>
       </form>
 
@@ -113,64 +116,40 @@
     // Définition des icônes des sections
     var icones = new Array();
 		icones["EGC"] = L.icon({
-			iconUrl: 'files/picto2/EGC.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/EGC.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
 		icones["IG"] = L.icon({
-			iconUrl: 'files/picto2/IG.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/IG.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
 		icones["MAT"] = L.icon({
-			iconUrl: 'files/picto2/MAT.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/MAT.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
     icones["MEA"] = L.icon({
-			iconUrl: 'files/picto2/MEA.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/MEA.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
     icones["MI"] = L.icon({
-			iconUrl: 'files/picto2/MI.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/MI.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
     icones["MSI"] = L.icon({
-			iconUrl: 'files/picto2/MSI.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/MSI.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
     icones["SE"] = L.icon({
-			iconUrl: 'files/picto2/SE.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/SE.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
     icones["STE"] = L.icon({
-			iconUrl: 'files/picto2/STE.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/STE.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
     icones["GBA"] = L.icon({
-			iconUrl: 'files/picto2/GBA.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/GBA.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
     icones["STIA"] = L.icon({
-			iconUrl: 'files/picto2/GBA.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/GBA.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
     icones["ENR"] = L.icon({
-			iconUrl: 'files/picto2/ENR.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/ENR.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
     icones["PeiP"] = L.icon({
-			iconUrl: 'files/picto2/PEIP.png',
-			shadowUrl: null, iconSize: [52, 52],
-      iconAnchor: [26, 52], popupAnchor:  [0, -50]
+			iconUrl: 'files/picto2/PEIP.png', shadowUrl: null, iconSize: [52, 52], iconAnchor: [26, 52], popupAnchor:  [0, -50]
 		});
 
     // Imagerie Mapbox
@@ -196,9 +175,13 @@
     // Les markers peuveur être rassemblés quand on est en dézoomé
     var markers = new L.MarkerClusterGroup().addTo(overlays);
 
+    // Initialisations diverses
     var geojson;
     var getJsonData;
     var numberMarkers = 0;
+    var dateFromRange = 5;
+    var timestampNow = <?php echo time(); ?>;
+    var stringOutputRange = "";
 
     // Parcours du fichier geojson pour ajouter les points
 		$.getJSON("files/mappingDetaille.geojson", function(data) {
@@ -235,16 +218,13 @@
         filter: function(feature, layer) {
           // Définition des filtres (true forcé pour les non développés)
           var filtreSection = (feature.properties.section == checkedSection) || checkedSection == "all";
-          // var filtreDebut = (feature.properties.dateDebut == checkedDebut) || checkedDebut == "all";
-          // var filtreFin = (feature.properties.dateFin == checkedFin) || checkedFin == "all";
-          // var filtrePromo = (feature.properties.promo == checkedPromo) || checkedPromo == "all";
-          var filtreDebut = true;
-          var filtreFin = true;
+          var filtreDateFin = (dateFromRange == 0) || (dateFromRange >= 1 && feature.properties.date_fin + (5-dateFromRange+1)*31557600 > <?php echo time(); ?>);
           var filtrePromo = true;
+
           var filtreCoordValide = (feature.geometry.coordinates[0] == null || feature.geometry.coordinates[0] == 19000 );
 
           // Sélectionne seulement les évènements qui correspondent dimultanément à tous les critères.
-          var condition = !filtreCoordValide && filtreSection && filtreDebut && filtreFin && filtrePromo;
+          var condition = !filtreCoordValide && filtreSection && filtreDateFin && filtrePromo;
           if (condition) {
             numberMarkers++;
           }
@@ -269,6 +249,26 @@
 
       return false;
     }
+
+    // Taitement du slider
+    $('#rangeDate').on("change", function() {
+      dateFromRange = this.value;
+      if (dateFromRange == 5) {
+        stringOutputRange = "Stages les plus récents<br>(moins d'un an)";
+      } else if (dateFromRange == 4) {
+        stringOutputRange = "Stages des deux<br>dernières années";
+      } else if (dateFromRange == 3) {
+        stringOutputRange = "Stages des trois<br>dernières années";
+      } else if (dateFromRange == 2) {
+        stringOutputRange = "Stages des quatre<br>dernières années";
+      } else if (dateFromRange == 1) {
+        stringOutputRange = "Stages des cinq<br>dernières années";
+      } else if (dateFromRange == 0) {
+        stringOutputRange = "Afficher tous<br>les stages";
+      }
+      document.getElementById('outputRangeDate').innerHTML = stringOutputRange;
+      setTimeout(function() {appliquerFiltres();}, 50);
+    }).trigger("change");
 	</script>
 </body>
 </html>
