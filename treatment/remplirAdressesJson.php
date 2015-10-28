@@ -14,6 +14,10 @@ function file_get_contents_utf8($fn) {
 		  mb_detect_encoding($content, 'UTF-8, ISO-8859-1', true));
 }
 
+function jsonRemoveUnicodeSequences($struct) {
+   return preg_replace("/\\\\u([a-f0-9]{4})/e", "iconv('UCS-4LE','UTF-8',pack('V', hexdec('U$1')))", json_encode($struct));
+}
+
 // Ouverture du fichier, et récupération du contenu
 $fichier = "../files/studentsPolytech2.geojson";
 $f = fopen($fichier, "r");
@@ -33,7 +37,7 @@ $detectSimilar = Array(
 );
 
 // DEBUG - LIMITES POUR LES ADRESSES (API LIMITEES !!)
-$limiteTest = 25;
+$limiteTest = 0;
 
 // Traitement cas par cas
 foreach ($decoded["polyMap"] as $stagiaire) {
@@ -113,6 +117,6 @@ foreach ($decoded["polyMap"] as $stagiaire) {
 $renvoi["polyMap"] = $sauvegardeResultats;
 
 $fichier = "../files/studentsPolytech2.geojson";
-file_put_contents($fichier, json_encode($renvoi));
+file_put_contents($fichier, jsonRemoveUnicodeSequences($renvoi));
 
 ?>

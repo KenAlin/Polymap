@@ -100,10 +100,7 @@
         </div>
 
         <div class="filt_FormContent">
-          <label for="rangeDate">
-            <input type="range" name="rangeDate" id="rangeDate" min="0" max="5" step="1" value="5"/>
-          </label>
-          <output for="rangeDate" class="output"></output>
+
         </div>
       </form>
 
@@ -202,7 +199,7 @@
     var numberMarkers = 0;
 
     // Parcours du fichier geojson pour ajouter les points
-		$.getJSON("files/mappingAnonyme.geojson", function(data) {
+		$.getJSON("files/mappingDetaille.geojson", function(data) {
 			getJsonData = data;
       setTimeout(function() {appliquerFiltres();}, 550);
 
