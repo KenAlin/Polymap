@@ -269,14 +269,14 @@
         max: <?php echo date("Y"); ?>,
         values: [2011, <?php echo date("Y"); ?>],
         slide: function( event, ui ) {
-          $( "#rangeDateTexte" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          $( "#rangeDateTexte" ).val( "entre " + ui.values[ 0 ] + " et " + ui.values[ 1 ] );
           dateDebFromRange = ui.values[ 0 ];
           dateFinFromRange = ui.values[ 1 ];
           setTimeout(function() {appliquerFiltres();}, 50);
         }
       });
-      $( "#rangeDateTexte" ).val( $( "#rangeDateSlider" ).slider( "values", 0 ) +
-        " - " + $( "#rangeDateSlider" ).slider( "values", 1 ) );
+      $( "#rangeDateTexte" ).val( "entre " + $( "#rangeDateSlider" ).slider( "values", 0 ) +
+        " et " + $( "#rangeDateSlider" ).slider( "values", 1 ) );
     });
 
 	</script>
