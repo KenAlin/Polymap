@@ -17,6 +17,8 @@
   <![endif]-->
   <script src="scripting/cluster.js"></script>
   <link rel="stylesheet" href="scripting/leaflet.css" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="polymap.css" />
   <link rel="stylesheet" href="scripting/cluster.css" />
   <script src="scripting/filtres.js"></script>
@@ -100,12 +102,22 @@
           </label>
         </div>
 
-        <div class="filt_FormContent">
+        <!-- <div class="filt_FormContent">
           <p style="font-weight: bold;">Date du stage</p>
           <label for="rangeDate">
             <input type="range" name="rangeDate" id="rangeDate" min="0" max="5" step="1" value="0"/>
           </label>
           <output for="rangeDate" class="output" id="outputRangeDate">Traitement</output>
+        </div> -->
+
+        <div class="filt_FormContent">
+          <p>
+            <label for="rangeDateTexte"><b>Date du stage :</b></label>
+            <input type="text" class="output" id="rangeDateTexte" readonly style="border:0; color: rgb(0,74,117); font-weight:bold;">
+          </p>
+
+          <div id="rangeDateSlider"></div>
+
         </div>
       </form>
 
@@ -179,7 +191,8 @@
     var geojson;
     var getJsonData;
     var numberMarkers = 0;
-    var dateFromRange = 5;
+    var dateDebFromRange = 2011;
+    var dateFinFromRange = <?php echo date("Y"); ?>;
     var timestampNow = <?php echo time(); ?>;
     var stringOutputRange = "";
 
@@ -193,8 +206,8 @@
     function appliquerFiltres() {
       // Fonction appelée à chaque clic sur un filtre, avec un délai de 50ms (propriété onclick)
       var checkedSection = $('input[name=section]:checked', '#filt_Form').val();
-      var checkedDebut = $('input[name=dateDebut]:checked', '#filt_Form').val();
-      var checkedFin = $('input[name=dateFin]:checked', '#filt_Form').val();
+      var checkedDebut = (dateDebFromRange - 1970) * 31557600;
+      var checkedFin = (dateFinFromRange - 1970 + 1) * 31557600;
       var checkedPromo = $('input[name=promo]:checked', '#filt_Form').val();
 
       // Nettoyage des filtres : on enlève tout !
@@ -218,13 +231,14 @@
         filter: function(feature, layer) {
           // Définition des filtres (true forcé pour les non développés)
           var filtreSection = (feature.properties.section == checkedSection) || checkedSection == "all";
-          var filtreDateFin = (dateFromRange == 0) || (dateFromRange >= 1 && feature.properties.date_fin + (5-dateFromRange+1)*31557600 > <?php echo time(); ?>);
+          var filtreDateDeb = (feature.properties.date_deb > checkedDebut);
+          var filtreDateFin = (feature.properties.date_fin < checkedFin);
           var filtrePromo = true;
 
           var filtreCoordValide = (feature.geometry.coordinates[0] == null || feature.geometry.coordinates[0] == 19000 );
 
           // Sélectionne seulement les évènements qui correspondent dimultanément à tous les critères.
-          var condition = !filtreCoordValide && filtreSection && filtreDateFin && filtrePromo;
+          var condition = !filtreCoordValide && filtreSection && filtreDateDeb && filtreDateFin && filtrePromo;
           if (condition) {
             numberMarkers++;
           }
@@ -242,9 +256,9 @@
         document.getElementById('filt_NumberMarkers').innerHTML = "Aucun étudiant trouvé";
       }
       else if (numberMarkers == 1) {
-        document.getElementById('filt_NumberMarkers').innerHTML = numberMarkers + " étudiant trouvé";
+        document.getElementById('filt_NumberMarkers').innerHTML = "<span class=\"highlightNumber\">1</span> étudiant trouvé";
       } else {
-        document.getElementById('filt_NumberMarkers').innerHTML = numberMarkers + " étudiants trouvés";
+        document.getElementById('filt_NumberMarkers').innerHTML = "<span class=\"highlightNumber\">" + numberMarkers + "</span> étudiants trouvés";
       }
 
       return false;
@@ -269,6 +283,24 @@
       document.getElementById('outputRangeDate').innerHTML = stringOutputRange;
       setTimeout(function() {appliquerFiltres();}, 50);
     }).trigger("change");
+
+    $(function() {
+      $( "#rangeDateSlider" ).slider({
+        range: true,
+        min: 2011,
+        max: <?php echo date("Y"); ?>,
+        values: [2011, <?php echo date("Y"); ?>],
+        slide: function( event, ui ) {
+          $( "#rangeDateTexte" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          dateDebFromRange = ui.values[ 0 ];
+          dateFinFromRange = ui.values[ 1 ];
+          setTimeout(function() {appliquerFiltres();}, 50);
+        }
+      });
+      $( "#rangeDateTexte" ).val( $( "#rangeDateSlider" ).slider( "values", 0 ) +
+        " - " + $( "#rangeDateSlider" ).slider( "values", 1 ) );
+    });
+
 	</script>
 </body>
 </html>

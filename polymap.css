@@ -25,7 +25,6 @@ p {
   width: 100%;
   background-color: white;
   display: none; /* Affichage sur clic OpenLink */
-
 }
 
 /* Les filtres ! Tout ce qui commence par "filt" concerne les filtres (oui oui) */
@@ -45,7 +44,6 @@ form {
 #filt_Open {
   background-attachment: scroll;
   background-clip: border-box;
-  /* background-color: rgba(255, 255, 255, 0.701961); */
   background-image: none;
   background-origin: padding-box;
   background-size: auto;
@@ -77,11 +75,14 @@ form {
   margin-left: 15px;
 }
 .filt_FormContent {
-  margin: 25px 8px 0 8px;
+  margin: 25px 8px;
   text-align: center;
   display: inline-block;
+  height: 100px;
+  vertical-align: top;
+  line-height: 45px;
 }
-label {
+.filt_FormChoixSection label {
    position: relative;
    width: 64px;
    margin-left: 2px;
@@ -121,4 +122,11 @@ output {
   display: block;
   font-size: 90%;
   font-style: italic;
+}
+.ui-widget-header {
+  background: rgb(0, 156, 221);
+}
+.highlightNumber {
+  color: rgb(0, 74, 117);
+  font-weight: bold;
 }
