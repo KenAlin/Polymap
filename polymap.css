@@ -41,6 +41,14 @@ form {
   font-size: 95%;
   font-family: "PT Sans", sans-serif;
 }
+#filt_About {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  color: gray;
+  font-size: 95%;
+  font-family: "PT Sans", sans-serif;
+}
 #filt_Open {
   background-attachment: scroll;
   background-clip: border-box;

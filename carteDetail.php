@@ -8,7 +8,7 @@
   Github / contact : https://github.com/KenAlin/Polymap
 -->
 <head>
-  <title>Polymap de tests</title>
+  <title>Polymap</title>
   <meta charset="utf-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
@@ -17,6 +17,8 @@
   <![endif]-->
   <script src="scripting/cluster.js"></script>
   <link rel="stylesheet" href="scripting/leaflet.css" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="polymap.css" />
   <link rel="stylesheet" href="scripting/cluster.css" />
   <script src="scripting/filtres.js"></script>
@@ -101,14 +103,19 @@
         </div>
 
         <div class="filt_FormContent">
-          <p style="font-weight: bold;">Date du stage</p>
-          <label for="rangeDate">
-            <input type="range" name="rangeDate" id="rangeDate" min="0" max="5" step="1" value="0"/>
-          </label>
-          <output for="rangeDate" class="output" id="outputRangeDate">Traitement</output>
+          <p>
+            <label for="rangeDateTexte"><b>Date du stage :</b></label>
+            <input type="text" class="output" id="rangeDateTexte" readonly style="border:0; color: rgb(0,74,117); font-weight:bold;">
+          </p>
+          <div id="rangeDateSlider"></div>
         </div>
       </form>
 
+      <div id="filt_About">
+        <p>
+          Polymap 2015 - <a href="about" target="_blank">En savoir plus</a>
+        </p>
+      </div>
 
   </div>
 
@@ -179,9 +186,8 @@
     var geojson;
     var getJsonData;
     var numberMarkers = 0;
-    var dateFromRange = 5;
-    var timestampNow = <?php echo time(); ?>;
-    var stringOutputRange = "";
+    var dateDebFromRange = 2011;
+    var dateFinFromRange = <?php echo date("Y"); ?>;
 
     // Parcours du fichier geojson pour ajouter les points
 		$.getJSON("files/mappingDetaille.geojson", function(data) {
@@ -193,8 +199,8 @@
     function appliquerFiltres() {
       // Fonction appelée à chaque clic sur un filtre, avec un délai de 50ms (propriété onclick)
       var checkedSection = $('input[name=section]:checked', '#filt_Form').val();
-      var checkedDebut = $('input[name=dateDebut]:checked', '#filt_Form').val();
-      var checkedFin = $('input[name=dateFin]:checked', '#filt_Form').val();
+      var checkedDebut = (dateDebFromRange - 1970) * 31557600;
+      var checkedFin = (dateFinFromRange - 1970 + 1) * 31557600;
       var checkedPromo = $('input[name=promo]:checked', '#filt_Form').val();
 
       // Nettoyage des filtres : on enlève tout !
@@ -218,13 +224,14 @@
         filter: function(feature, layer) {
           // Définition des filtres (true forcé pour les non développés)
           var filtreSection = (feature.properties.section == checkedSection) || checkedSection == "all";
-          var filtreDateFin = (dateFromRange == 0) || (dateFromRange >= 1 && feature.properties.date_fin + (5-dateFromRange+1)*31557600 > <?php echo time(); ?>);
+          var filtreDateDeb = (feature.properties.date_deb > checkedDebut);
+          var filtreDateFin = (feature.properties.date_fin < checkedFin);
           var filtrePromo = true;
 
           var filtreCoordValide = (feature.geometry.coordinates[0] == null || feature.geometry.coordinates[0] == 19000 );
 
           // Sélectionne seulement les évènements qui correspondent dimultanément à tous les critères.
-          var condition = !filtreCoordValide && filtreSection && filtreDateFin && filtrePromo;
+          var condition = !filtreCoordValide && filtreSection && filtreDateDeb && filtreDateFin && filtrePromo;
           if (condition) {
             numberMarkers++;
           }
@@ -242,33 +249,32 @@
         document.getElementById('filt_NumberMarkers').innerHTML = "Aucun étudiant trouvé";
       }
       else if (numberMarkers == 1) {
-        document.getElementById('filt_NumberMarkers').innerHTML = numberMarkers + " étudiant trouvé";
+        document.getElementById('filt_NumberMarkers').innerHTML = "<span class=\"highlightNumber\">1</span> étudiant trouvé";
       } else {
-        document.getElementById('filt_NumberMarkers').innerHTML = numberMarkers + " étudiants trouvés";
+        document.getElementById('filt_NumberMarkers').innerHTML = "<span class=\"highlightNumber\">" + numberMarkers + "</span> étudiants trouvés";
       }
 
       return false;
     }
 
     // Taitement du slider
-    $('#rangeDate').on("change", function() {
-      dateFromRange = this.value;
-      if (dateFromRange == 5) {
-        stringOutputRange = "Stages les plus récents<br>(moins d'un an)";
-      } else if (dateFromRange == 4) {
-        stringOutputRange = "Stages des deux<br>dernières années";
-      } else if (dateFromRange == 3) {
-        stringOutputRange = "Stages des trois<br>dernières années";
-      } else if (dateFromRange == 2) {
-        stringOutputRange = "Stages des quatre<br>dernières années";
-      } else if (dateFromRange == 1) {
-        stringOutputRange = "Stages des cinq<br>dernières années";
-      } else if (dateFromRange == 0) {
-        stringOutputRange = "Afficher tous<br>les stages";
-      }
-      document.getElementById('outputRangeDate').innerHTML = stringOutputRange;
-      setTimeout(function() {appliquerFiltres();}, 50);
-    }).trigger("change");
+    $(function() {
+      $( "#rangeDateSlider" ).slider({
+        range: true,
+        min: 2011,
+        max: <?php echo date("Y"); ?>,
+        values: [2011, <?php echo date("Y"); ?>],
+        slide: function( event, ui ) {
+          $( "#rangeDateTexte" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          dateDebFromRange = ui.values[ 0 ];
+          dateFinFromRange = ui.values[ 1 ];
+          setTimeout(function() {appliquerFiltres();}, 50);
+        }
+      });
+      $( "#rangeDateTexte" ).val( $( "#rangeDateSlider" ).slider( "values", 0 ) +
+        " - " + $( "#rangeDateSlider" ).slider( "values", 1 ) );
+    });
+
 	</script>
 </body>
 </html>

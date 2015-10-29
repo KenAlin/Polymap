@@ -8,7 +8,7 @@
   Github / contact : https://github.com/KenAlin/Polymap
 -->
 <head>
-  <title>Polymap de tests</title>
+  <title>Polymap</title>
   <meta charset="utf-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
@@ -102,14 +102,6 @@
           </label>
         </div>
 
-        <!-- <div class="filt_FormContent">
-          <p style="font-weight: bold;">Date du stage</p>
-          <label for="rangeDate">
-            <input type="range" name="rangeDate" id="rangeDate" min="0" max="5" step="1" value="0"/>
-          </label>
-          <output for="rangeDate" class="output" id="outputRangeDate">Traitement</output>
-        </div> -->
-
         <div class="filt_FormContent">
           <p>
             <label for="rangeDateTexte"><b>Date du stage :</b></label>
@@ -119,7 +111,14 @@
           <div id="rangeDateSlider"></div>
 
         </div>
+
       </form>
+
+      <div id="filt_About">
+        <p>
+          Polymap 2015 - <a href="about" target="_blank">En savoir plus</a>
+        </p>
+      </div>
 
 
   </div>
@@ -193,8 +192,6 @@
     var numberMarkers = 0;
     var dateDebFromRange = 2011;
     var dateFinFromRange = <?php echo date("Y"); ?>;
-    var timestampNow = <?php echo time(); ?>;
-    var stringOutputRange = "";
 
     // Parcours du fichier geojson pour ajouter les points
 		$.getJSON("files/mappingAnonyme.geojson", function(data) {
@@ -265,25 +262,6 @@
     }
 
     // Taitement du slider
-    $('#rangeDate').on("change", function() {
-      dateFromRange = this.value;
-      if (dateFromRange == 5) {
-        stringOutputRange = "Stages les plus récents<br>(moins d'un an)";
-      } else if (dateFromRange == 4) {
-        stringOutputRange = "Stages des deux<br>dernières années";
-      } else if (dateFromRange == 3) {
-        stringOutputRange = "Stages des trois<br>dernières années";
-      } else if (dateFromRange == 2) {
-        stringOutputRange = "Stages des quatre<br>dernières années";
-      } else if (dateFromRange == 1) {
-        stringOutputRange = "Stages des cinq<br>dernières années";
-      } else if (dateFromRange == 0) {
-        stringOutputRange = "Afficher tous<br>les stages";
-      }
-      document.getElementById('outputRangeDate').innerHTML = stringOutputRange;
-      setTimeout(function() {appliquerFiltres();}, 50);
-    }).trigger("change");
-
     $(function() {
       $( "#rangeDateSlider" ).slider({
         range: true,
