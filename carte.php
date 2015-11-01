@@ -29,14 +29,15 @@
   <div id="mapP"></div>
 
   <div id="filt_Open">
-    <a href="#" onclick="afficheFiltres();" id="filt_OpenLink"><img src="files/gear.png" width="65px" height="65px" /></a>
+    <a href="#" onclick="afficheFiltres();" id="filt_OpenLink"><img src="files/gear.png" width="45px" height="45px" /></a>
   </div>
 
   <div id="filtres">
     <div id="filt_Close">
+      <a href="#" onclick="masqueFiltres();" id="filt_CloseLink"><img src="files/close.png" style="height: 100%;" /></a>
+    </div>
+    <div id="filt_Indic">
       <span id="filt_NumberMarkers"></span>
-      <span> </span>
-      <a href="#" onclick="masqueFiltres();" id="filt_CloseLink">[X]</a>
     </div>
 
       <form enctype="multipart/form-data" name="filt_Form" id="filt_Form" action="" method="post">
@@ -106,7 +107,7 @@
         <div class="filt_FormContent">
           <p>
             <label for="rangeDateTexte"><b>Date du stage :</b></label>
-            <input type="text" class="output" id="rangeDateTexte" readonly style="border:0; color: rgb(0,74,117); font-weight:bold;">
+            <input type="text" class="output" id="rangeDateTexte" readonly style="border:0; color: rgb(0,74,117); background-color: transparent; font-weight:bold;">
           </p>
 
           <div id="rangeDateSlider"></div>

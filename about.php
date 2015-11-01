@@ -136,7 +136,7 @@
             </p>
           <br />
           <a href="https://github.com/KenAlin/Polymap" target="_blank"><i class="fa fa-github"></i> Github</a>
-          <a href="http://polytech-montpellier.fr" target="_blank">Polytech Montpellier</a>
+          <a href="http://www.polytech-montpellier.fr/" target="_blank">Polytech Montpellier</a>
           <p style="font-style: italic;">Façonné en octobre 2015.</p>
   			</div>
   		</div>
