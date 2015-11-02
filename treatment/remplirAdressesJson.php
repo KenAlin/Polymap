@@ -37,7 +37,7 @@ $detectSimilar = Array(
 );
 
 // DEBUG - LIMITES POUR LES ADRESSES (API LIMITEES !!)
-$limiteTest = 0;
+$limiteTest = 15;
 
 // Traitement cas par cas
 foreach ($decoded["polyMap"] as $stagiaire) {
